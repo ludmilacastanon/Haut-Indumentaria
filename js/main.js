@@ -99,7 +99,6 @@ function mostrarCarrito() {
         console.log("El carrito está vacío.");
     } else {
         console.log("Carrito de compras:");
-        // Utilizamos map para transformar la información del carrito en una lista formateada
         let listadoPrendas = carrito.map((prenda, index) => 
             `${index + 1}. ${prenda.nombre} - Talle: ${prenda.talle}, Color: ${prenda.color}, Precio: $${prenda.precio}`
         ).join("\n");
@@ -110,7 +109,6 @@ function mostrarCarrito() {
 }
 
 function calcularTotal() {
-    // Utilizamos reduce para calcular el total del carrito
     return carrito.reduce((total, prenda) => total + prenda.precio, 0);
 }
 
@@ -126,15 +124,12 @@ function filtrarPrendasPorPrecio() {
         console.log("Monto inválido. Inténtalo de nuevo.");
         return;
     }
-
-    // Filtramos las prendas en el carrito que tienen un precio menor o igual al monto ingresado
     let prendasFiltradas = carrito.filter(prenda => prenda.precio <= montoMaximo);
 
     if (prendasFiltradas.length === 0) {
         console.log("No hay prendas disponibles para ese monto.");
     } else {
         console.log("Prendas disponibles para el monto ingresado:");
-        // Utilizamos map para transformar la información de las prendas filtradas en una lista formateada
         let listadoPrendas = prendasFiltradas.map((prenda, index) => 
             `${index + 1}. ${prenda.nombre} - Talle: ${prenda.talle}, Color: ${prenda.color}, Precio: $${prenda.precio}`
         ).join("\n");
@@ -146,7 +141,6 @@ function filtrarPrendasPorPrecio() {
 function buscarPrendaPorNombre() {
     let nombreBusqueda = prompt("Ingresa el nombre de la prenda que deseas buscar:");
 
-    // Utilizamos find para buscar la prenda en el carrito
     let prendaEncontrada = carrito.find(prenda => prenda.nombre.toLowerCase() === nombreBusqueda.toLowerCase());
 
     if (prendaEncontrada) {
