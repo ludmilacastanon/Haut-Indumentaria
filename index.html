@@ -1,13 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Ludmila Castañon </title>
-    <!-- JS -->
-    <script defer src="./js/main.js"></script>
+    <title>Haut</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1> Preentrega 1 Ludmila Castañon </h1>
+    <header>
+        <h1>Haut</h1>
+    </header>
+    <div class="container">
+        <h2>Agregar Prenda al Carrito</h2>
+        <div class="item">
+            <img src="images/remera.jpg" alt="Remera" class="product-image">
+            <span>Remera - Talle: M, Color: Blanco, Precio: $15000</span>
+            <button id="btnAgregarCamiseta">Agregar</button>
+        </div>
+        <div class="item">
+            <img src="images/jean.jpg" alt="Jean" class="product-image">
+            <span>Jean - Talle: L, Color: Azul, Precio: $30000</span>
+            <button id="btnAgregarPantalones">Agregar</button>
+        </div>
+        <div class="item">
+            <img src="images/zapatos.jpg" alt="Zapas" class="product-image">
+            <span>Zapas - Talle: 38, Color: Negro, Precio: $55000</span>
+            <button id="btnAgregarZapatos">Agregar</button>
+        </div>
+        <div class="item">
+            <img src="images/campera.jpg" alt="Campera" class="product-image">
+            <span>Campera - Talle: XL, Color: Gris, Precio: $40000</span>
+            <button id="btnAgregarChaqueta">Agregar</button>
+        </div>
+        <div class="item">
+            <img src="images/gorra.jpg" alt="Gorra" class="product-image">
+            <span>Gorra - Talle: S, Color: Rojo, Precio: $10000</span>
+            <button id="btnAgregarSombrero">Agregar</button>
+        </div>
+
+        <h2>Opciones</h2>
+        <button id="btnMostrarCarrito">Mostrar Carrito</button>
+        <button id="btnEliminarPrenda">Eliminar Prenda</button>
+        <button id="btnFiltrarPorPrecio">Filtrar por Precio</button>
+        <button id="btnBuscarPorNombre">Buscar por Nombre</button>
+
+        <div id="eliminarPrenda" class="hidden">
+            <h3>Eliminar Prenda</h3>
+            <select id="prendasEliminar"></select>
+            <button id="btnConfirmarEliminar">Eliminar</button>
+        </div>
+
+        <div id="filtrarPorPrecio" class="hidden">
+            <h3>Filtrar por Precio</h3>
+            <input type="number" id="precioMaximo" placeholder="Monto máximo" min="0">
+        </div>
+
+        <div id="buscarPorNombre" class="hidden">
+            <h3>Buscar por Nombre</h3>
+            <input type="text" id="nombreBusqueda" placeholder="Nombre de la prenda">
+        </div>
+
+        <div id="resultado" class="hidden"></div>
+        <ul id="listaCarrito"></ul>
+    </div>
+    <script src="carrito.js"></script>
 </body>
 </html>
