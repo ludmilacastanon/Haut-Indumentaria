@@ -1,38 +1,56 @@
-let carrito = [];
+let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
 class Prenda {
-    constructor(nombre, talle, color, precio) {
+    constructor(id, nombre, talle, color, precio, imagen) {
+        this.id = id;
         this.nombre = nombre;
         this.talle = talle;
         this.color = color;
         this.precio = precio;
+        this.imagen = imagen;
     }
 }
 
-const PRENDA_CAMISETA = new Prenda("Remera", "M", "Blanco", 15000);
-const PRENDA_PANTALONES = new Prenda("Jean", "L", "Azul", 30000);
-const PRENDA_ZAPATOS = new Prenda("Zapas", "38", "Negro", 55000);
-const PRENDA_CHAQUETA = new Prenda("Campera", "XL", "Gris", 40000);
-const PRENDA_SOMBRERO = new Prenda("Gorra", "S", "Rojo", 10000);
+const prendas = [
+    new Prenda(1, "Remera", "M", "Blanco", 15000, "images/remera.jpg"),
+    new Prenda(2, "Jean", "L", "Azul", 30000, "images/jean.jpg"),
+    new Prenda(3, "Zapas", "38", "Negro", 55000, "images/zapatos.jpg"),
+    new Prenda(4, "Campera", "XL", "Gris", 40000, "images/campera.jpg"),
+    new Prenda(5, "Gorra", "S", "Rojo", 10000, "images/gorra.jpg")
+];
 
 document.addEventListener('DOMContentLoaded', () => {
-
-    document.getElementById('btnAgregarCamiseta').addEventListener('click', () => agregarAlCarrito(PRENDA_CAMISETA));
-    document.getElementById('btnAgregarPantalones').addEventListener('click', () => agregarAlCarrito(PRENDA_PANTALONES));
-    document.getElementById('btnAgregarZapatos').addEventListener('click', () => agregarAlCarrito(PRENDA_ZAPATOS));
-    document.getElementById('btnAgregarChaqueta').addEventListener('click', () => agregarAlCarrito(PRENDA_CHAQUETA));
-    document.getElementById('btnAgregarSombrero').addEventListener('click', () => agregarAlCarrito(PRENDA_SOMBRERO));
-
-
+    renderizarProductos();
+    document.getElementById('btnMostrarCarrito').addEventListener('click', mostrarCarrito);
     document.getElementById('btnEliminarPrenda').addEventListener('click', mostrarEliminarPrenda);
+    document.getElementById('btnConfirmarEliminar').addEventListener('click', eliminarPrenda);
     document.getElementById('btnFiltrarPorPrecio').addEventListener('click', filtrarPrendasPorPrecio);
     document.getElementById('btnBuscarPorNombre').addEventListener('click', buscarPrendaPorNombre);
-
-    document.getElementById('btnMostrarCarrito').addEventListener('click', mostrarCarrito);
-
-
-    document.getElementById('btnConfirmarEliminar').addEventListener('click', eliminarPrenda);
+    actualizarListaCarrito();
 });
+
+function renderizarProductos() {
+    const productosDiv = document.getElementById('productos');
+    prendas.forEach(prenda => {
+        const itemDiv = document.createElement('div');
+        itemDiv.classList.add('item');
+        itemDiv.innerHTML = `
+            <img src="${prenda.imagen}" alt="${prenda.nombre}" class="product-image">
+            <span>${prenda.nombre} - Talle: ${prenda.talle}, Color: ${prenda.color}, Precio: $${prenda.precio}</span>
+            <button onclick="agregarAlCarrito(${prenda.id})">Agregar</button>
+        `;
+        productosDiv.appendChild(itemDiv);
+    });
+}
+
+function agregarAlCarrito(id) {
+    const prenda = prendas.find(p => p.id === id);
+    carrito.push(prenda);
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    mostrarCarrito();
+    actualizarListaCarrito();
+    alert(`${prenda.nombre} se agregó al carrito.`);
+}
 
 function mostrarCarrito() {
     const resultado = document.getElementById('resultado');
@@ -41,7 +59,7 @@ function mostrarCarrito() {
     if (carrito.length === 0) {
         resultado.innerHTML = "El carrito está vacío.";
     } else {
-        let listadoPrendas = carrito.map((prenda, index) => 
+        const listadoPrendas = carrito.map((prenda, index) => 
             `${index + 1}. ${prenda.nombre} - Talle: ${prenda.talle}, Color: ${prenda.color}, Precio: $${prenda.precio}`
         ).join("<br>");
         
@@ -54,13 +72,6 @@ function calcularTotal() {
     return carrito.reduce((total, prenda) => total + prenda.precio, 0);
 }
 
-function agregarAlCarrito(prenda) {
-    carrito.push(prenda);
-    mostrarCarrito();
-    alert(`"${prenda.nombre}" se agregó al carrito.`);
-    actualizarListaCarrito(); 
-}
-
 function actualizarListaCarrito() {
     const listaCarrito = document.getElementById('listaCarrito');
     listaCarrito.innerHTML = '';
@@ -69,12 +80,13 @@ function actualizarListaCarrito() {
         const li = document.createElement('li');
         li.textContent = `${prenda.nombre} - Talle: ${prenda.talle}, Color: ${prenda.color}, Precio: $${prenda.precio}`;
         
-        
         const btnEliminar = document.createElement('button');
         btnEliminar.textContent = 'Eliminar';
         btnEliminar.onclick = () => {
             carrito.splice(index, 1);
-            actualizarListaCarrito(); 
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+            actualizarListaCarrito();
+            mostrarCarrito();
         };
         
         li.appendChild(btnEliminar);
@@ -103,9 +115,10 @@ function eliminarPrenda() {
     
     if (indice >= 0 && indice < carrito.length) {
         carrito.splice(indice, 1);
+        localStorage.setItem('carrito', JSON.stringify(carrito));
         alert("Prenda eliminada del carrito.");
-        actualizarListaCarrito(); 
-        mostrarCarrito(); 
+        actualizarListaCarrito();
+        mostrarCarrito();
     } else {
         alert("Opción inválida. Inténtalo de nuevo.");
     }
@@ -128,7 +141,7 @@ function filtrarPrendasPorPrecio() {
     if (prendasFiltradas.length === 0) {
         resultado.innerHTML = "No hay prendas disponibles para ese monto.";
     } else {
-        let listadoPrendas = prendasFiltradas.map((prenda, index) => 
+        const listadoPrendas = prendasFiltradas.map((prenda, index) => 
             `${index + 1}. ${prenda.nombre} - Talle: ${prenda.talle}, Color: ${prenda.color}, Precio: $${prenda.precio}`
         ).join("<br>");
         
@@ -137,6 +150,7 @@ function filtrarPrendasPorPrecio() {
     resultado.classList.remove('hidden');
     document.getElementById('filtrarPorPrecio').classList.add('hidden');
 }
+
 
 function buscarPrendaPorNombre() {
     const nombreBusqueda = document.getElementById('nombreBusqueda').value.toLowerCase();
@@ -154,3 +168,4 @@ function buscarPrendaPorNombre() {
     resultado.classList.remove('hidden');
     document.getElementById('buscarPorNombre').classList.add('hidden');
 }
+
