@@ -15,10 +15,23 @@
         <div id="productos"></div>
 
         <h2>Opciones</h2>
-        <button id="btnMostrarCarrito">Mostrar Carrito</button>
+        <div id="botones" style="display: flex; align-items: center; gap: 10px;">
+        <button id="btnMostrarCarrito" onclick="toggleCarrito()">Mostrar Carrito</button>
         <button id="btnEliminarPrenda">Eliminar Prenda</button>
         <button id="btnFiltrarPorPrecio">Filtrar por Precio</button>
-        <button id="btnBuscarPorNombre">Buscar por Nombre</button>
+        <div id="buscarPorNombre">
+            <input type="text" id="nombreBusqueda" placeholder="Nombre de la prenda">
+            <button id="btnBuscarPorNombre" onclick="buscarPrendaPorNombre()">Buscar</button>
+        </div>
+        </div>
+
+        <div id="carritoMenu" class="carrito-menu">
+            <h2>Carrito</h2>
+            <div id="carritoContenido">
+                <!-- Aca se inseran las prendas del carrito -->
+            </div>
+            <button onclick="toggleCarrito()">Cerrar</button>
+        </div>
 
         <div id="eliminarPrenda" class="hidden">
             <h3>Eliminar Prenda</h3>
@@ -29,15 +42,9 @@
         <div id="filtrarPorPrecio" class="hidden">
             <h3>Filtrar por Precio</h3>
             <input type="number" id="precioMaximo" placeholder="Monto máximo" min="0">
-        </div>
-
-        <div id="buscarPorNombre" class="hidden">
-            <h3>Buscar por Nombre</h3>
-            <input type="text" id="nombreBusqueda" placeholder="Nombre de la prenda">
-        </div>
+        </div>              
 
         <div id="resultado" class="hidden"></div>
-        <ul id="listaCarrito"></ul>
     </div>
     <script src="js/main.js"></script>
 </body>
