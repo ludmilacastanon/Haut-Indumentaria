@@ -48,3 +48,33 @@ button:hover {
 .carrito-menu.mostrar {
     right: 0; /* Mueve el carrito a la vista */
 }
+
+/* Aca esta para celular */
+@media (max-width: 768px) {
+    header {
+        text-align: center;
+        padding: 10px;
+    }
+
+    .container {
+        padding: 10px;
+        margin: 0;
+    }
+
+    #botones {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .product-image {
+        width: 100%; /* Asegura que las imágenes se ajusten al tamaño del contenedor en celular */
+        height: auto;
+    }
+
+    .carrito-menu {
+        width: 100%; /* Hace que el carrito ocupe todo el ancho en celular */
+        height: auto;
+        bottom: 0;
+        right: 0;
+    }
+}

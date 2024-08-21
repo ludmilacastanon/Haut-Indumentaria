@@ -2,13 +2,14 @@ let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 let ordenDescendente = true; // Variable para rastrear el estado de la ordenación de las prendas
 
 class Prenda {
-    constructor(id, nombre, talle, color, precio, imagen) {
+    constructor(id, nombre, talle, color, precio, imagen, cantidad = 1) {
         this.id = id;
         this.nombre = nombre;
         this.talle = talle;
         this.color = color;
         this.precio = precio;
         this.imagen = imagen;
+        this.cantidad = cantidad; // manejar la cantidad
     }
 }
 
@@ -45,12 +46,31 @@ function renderizarProductos() {
 }
 
 function agregarAlCarrito(id) {
-    const prenda = prendas.find(p => p.id === id);
-    carrito.push(prenda);
+    const prendaExistente = carrito.find(p => p.id === id);
+
+    if (prendaExistente) {
+        prendaExistente.cantidad += 1; // Incrementar la cantidad si la prenda ya está en el carrito
+    } else {
+        const prenda = prendas.find(p => p.id === id);
+        carrito.push(new Prenda(prenda.id, prenda.nombre, prenda.talle, prenda.color, prenda.precio, prenda.imagen));
+    }
+
     localStorage.setItem('carrito', JSON.stringify(carrito));
     mostrarCarrito();
-    actualizarListaCarrito();
-    alert(`${prenda.nombre} se agregó al carrito.`);
+    alert(`${prendaExistente ? prendaExistente.nombre : prendas.find(p => p.id === id).nombre} se agregó al carrito.`);
+}
+
+function eliminarDelCarrito(id) {
+    const prenda = carrito.find(p => p.id === id);
+
+    if (prenda.cantidad > 1) {
+        prenda.cantidad -= 1; // Reducir la cantidad si es mayor a 1
+    } else {
+        carrito = carrito.filter(p => p.id !== id); // Eliminar del carrito si la cantidad es 1
+    }
+
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    mostrarCarrito(); // Actualizar la vista del carrito
 }
 
 function toggleCarrito() {
@@ -74,21 +94,20 @@ function mostrarCarrito() {
             const prendaDiv = document.createElement('div');
             prendaDiv.classList.add('item');
             prendaDiv.innerHTML = `
-                <p>${prenda.nombre} - Talle: ${prenda.talle}, Color: ${prenda.color}, Precio: $${prenda.precio}</p>
+                <p>${prenda.nombre} - Talle: ${prenda.talle}, Color: ${prenda.color}, Precio: $${prenda.precio} x ${prenda.cantidad}</p>
                 <button onclick="eliminarDelCarrito(${prenda.id})">Eliminar</button>
             `;
             carritoContenido.appendChild(prendaDiv);
         });
     }
-}
 
-function eliminarDelCarrito(id) {
-    carrito = carrito.filter(prenda => prenda.id !== id);
-    mostrarCarrito(); // Actualizar la vista del carrito
+    // Actualizar el total
+    const total = calcularTotal();
+    document.getElementById('totalCarrito').textContent = total;
 }
 
 function calcularTotal() {
-    return carrito.reduce((total, prenda) => total + prenda.precio, 0);
+    return carrito.reduce((total, prenda) => total + (prenda.precio * prenda.cantidad), 0);
 }
 
 function actualizarListaCarrito() {
