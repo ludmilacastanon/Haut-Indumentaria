@@ -13,11 +13,11 @@ class Prenda {
 }
 
 const prendas = [
-    new Prenda(1, "Remera", "M", "Blanco", 15000, "images/remera.jpg"),
-    new Prenda(2, "Jean", "L", "Azul", 30000, "images/jean.jpg"),
-    new Prenda(3, "Zapas", "38", "Negro", 55000, "images/zapatos.jpg"),
-    new Prenda(4, "Campera", "XL", "Gris", 40000, "images/campera.jpg"),
-    new Prenda(5, "Gorra", "S", "Rojo", 10000, "images/gorra.jpg")
+    new Prenda(1, "Remera", "M", "Blanco", 15000, "images/remera.png"),
+    new Prenda(2, "Jean", "L", "Azul", 30000, "images/jean.png"),
+    new Prenda(3, "Zapas", "38", "Negro", 55000, "images/zapatos.png"),
+    new Prenda(4, "Campera", "XL", "Gris", 40000, "images/campera.png"),
+    new Prenda(5, "Gorra", "S", "Rojo", 10000, "images/gorra.png")
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
