@@ -224,7 +224,7 @@ function finalizarCompra() {
 
     const total = calcularTotal();
 
-    alert(`Gracias ${nombre} por tu compra! El total es $${total}. Tus productos serán enviados a ${direccion}.`);
+    alert(`Gracias ${nombre} por tu compra! El total es $${total}. Tus productos serán enviados en los proximos 5 días habiles a ${direccion}.`);
 
     vaciarCarrito(); // Vaciar el carrito automáticamente después de la compra
 }
