@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Haut</title>
     <link rel="stylesheet" href="css/styles.css">
+    <script src="js/main.js" defer></script>
+    <script src="js/carrito.js" defer></script>
 </head>
 <body>
     <header>
@@ -16,22 +18,24 @@
 
         <h2>Opciones</h2>
         <div id="botones" style="display: flex; align-items: center; gap: 10px;">
-        <button id="btnMostrarCarrito" onclick="toggleCarrito()">Mostrar Carrito</button>
-        <button id="btnEliminarPrenda">Eliminar Prenda</button>
-        <button id="btnFiltrarPorPrecio">Filtrar por Precio</button>
-        <div id="buscarPorNombre">
-            <input type="text" id="nombreBusqueda" placeholder="Nombre de la prenda">
-            <button id="btnBuscarPorNombre" onclick="buscarPrendaPorNombre()">Buscar</button>
-        </div>
+            <button id="btnMostrarCarrito">Mostrar Carrito</button>
+            <button id="btnEliminarPrenda">Eliminar Prenda</button>
+            <button id="btnFiltrarPorPrecio">Filtrar por Precio</button>
+            <div id="buscarPorNombre">
+                <input type="text" id="nombreBusqueda" placeholder="Nombre de la prenda">
+                <button id="btnBuscarPorNombre">Buscar</button>
+            </div>
+            <button id="btnVaciarCarrito">Vaciar Carrito</button>
+            <button id="btnFinalizarCompra">Finalizar Compra</button>
         </div>
 
         <div id="carritoMenu" class="carrito-menu">
             <h2>Carrito</h2>
             <div id="carritoContenido">
-                <!-- Aca se inseran las prendas del carrito -->
+                <!-- Aquí se insertan las prendas del carrito -->
             </div>
             <h3>Total: $<span id="totalCarrito">0</span></h3>
-            <button onclick="toggleCarrito()">Cerrar</button>
+            <button id="btnCerrarCarrito">Cerrar</button>
         </div>
 
         <div id="eliminarPrenda" class="hidden">
@@ -43,10 +47,9 @@
         <div id="filtrarPorPrecio" class="hidden">
             <h3>Filtrar por Precio</h3>
             <input type="number" id="precioMaximo" placeholder="Monto máximo" min="0">
-        </div>              
+        </div>
 
         <div id="resultado" class="hidden"></div>
     </div>
-    <script src="js/main.js"></script>
 </body>
 </html>

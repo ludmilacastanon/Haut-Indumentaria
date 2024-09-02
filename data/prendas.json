@@ -1,0 +1,42 @@
+[
+    {
+        "id": 1,
+        "nombre": "Remera",
+        "talle": "M",
+        "color": "Blanco",
+        "precio": 15000,
+        "imagen": "images/remera.png"
+    },
+    {
+        "id": 2,
+        "nombre": "Jean",
+        "talle": "L",
+        "color": "Azul",
+        "precio": 30000,
+        "imagen": "images/jean.png"
+    },
+    {
+        "id": 3,
+        "nombre": "Zapas",
+        "talle": "38",
+        "color": "Negro",
+        "precio": 55000,
+        "imagen": "images/zapatos.png"
+    },
+    {
+        "id": 4,
+        "nombre": "Campera",
+        "talle": "XL",
+        "color": "Gris",
+        "precio": 40000,
+        "imagen": "images/campera.png"
+    },
+    {
+        "id": 5,
+        "nombre": "Gorra",
+        "talle": "S",
+        "color": "Rojo",
+        "precio": 10000,
+        "imagen": "images/gorra.png"
+    }
+]
